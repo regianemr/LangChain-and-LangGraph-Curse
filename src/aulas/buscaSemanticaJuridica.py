@@ -27,3 +27,10 @@ for filename in os.listdir(extracted_folder_path):
         file_path = os.path.join(extracted_folder_path, filename)
         loader = PyMuPDFLoader(file_path)
         documents.extend(loader.load())
+
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=100,
+    length_function=len
+)
+chunks = text_splitter.create_document([doc.page_content for doc in documents])
